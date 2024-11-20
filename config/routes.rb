@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
   require 'sidekiq'
   require 'sidekiq/web'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get '/login' => redirect('/users/sign_in')
+  get '/signup' => redirect('/users/sign_up')
+
+  devise_for :users
+
+  root to: "static_pages#home"
+
+  # application status and health check
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Defines the root path route ("/")
-  # root "posts#index"
-
-  # Protect the Sidekiq admin dashboard with authentication
+  # Sidekiq admin dashboard protected by authentication
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
   end
