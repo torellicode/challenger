@@ -1,0 +1,21 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <h1 class="text-3xl font-bold text-gray-900 mb-8">Announcements</h1>
+  
+  <div class="space-y-6">
+    <% @announcements.each do |announcement| %>
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-2">
+            <%= link_to announcement.title, announcement_path(announcement), class: "hover:text-indigo-600" %>
+          </h2>
+          <p class="text-sm text-gray-500 mb-4">
+            Published <%= time_ago_in_words(announcement.published_at) %> ago
+          </p>
+          <div class="prose max-w-none">
+            <%= announcement.content %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

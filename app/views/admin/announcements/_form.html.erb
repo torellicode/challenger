@@ -1,0 +1,27 @@
+<%= form_with(model: [:admin, announcement], class: "space-y-6") do |f| %>
+  <% if announcement.errors.any? %>
+    <div class="bg-red-50 p-4 rounded-md">
+      <h2 class="text-red-800 text-sm font-medium"><%= pluralize(announcement.errors.count, "error") %> prohibited this announcement from being saved:</h2>
+      <ul class="mt-3 list-disc list-inside text-red-700 text-sm">
+        <% announcement.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_field :title, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+
+  <div>
+    <%= f.label :content, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_area :content, rows: 5, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+
+  <div class="flex justify-end">
+    <%= link_to "Cancel", admin_announcements_path, class: "bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2" %>
+    <%= f.submit class: "bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+  </div>
+<% end %>

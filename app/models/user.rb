@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :announcements, dependent: :destroy
+
   enum role: {
     standard: 0,
     basic: 1,
@@ -15,7 +17,7 @@ class User < ApplicationRecord
 
   after_initialize :set_default_role, if: :new_record?
   before_save :titleize_username
-  
+
   private
 
   def set_default_role

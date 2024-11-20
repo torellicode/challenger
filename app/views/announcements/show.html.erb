@@ -1,0 +1,47 @@
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <nav class="mb-8">
+    <%= link_to announcements_path, class: "text-indigo-600 hover:text-indigo-900 flex items-center" do %>
+      <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+      </svg>
+      Back to Announcements
+    <% end %>
+  </nav>
+
+  <article class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6">
+      <h1 class="text-2xl font-bold text-gray-900 mb-2">
+        <%= @announcement.title %>
+      </h1>
+      
+      <div class="flex items-center text-sm text-gray-500">
+        <span>Published <%= time_ago_in_words(@announcement.published_at) %> ago</span>
+        <span class="mx-2">&bull;</span>
+        <span>By <%= @announcement.user.username %></span>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <div class="prose max-w-none">
+        <%= @announcement.content %>
+      </div>
+    </div>
+  </article>
+
+  <% if current_user&.admin? %>
+    <div class="mt-6 flex justify-end space-x-4">
+      <%= link_to "Edit", edit_admin_announcement_path(@announcement), 
+          class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      
+      <% if @announcement.published? %>
+        <%= button_to "Unpublish", unpublish_admin_announcement_path(@announcement), 
+            method: :post,
+            class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-yellow-700 bg-yellow-100 hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500" %>
+      <% else %>
+        <%= button_to "Publish", publish_admin_announcement_path(@announcement), 
+            method: :post,
+            class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
