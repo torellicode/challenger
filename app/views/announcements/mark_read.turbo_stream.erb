@@ -1,0 +1,20 @@
+<%# Update the badge count - now with a data-announcement-target %>
+<%= turbo_stream.replace "announcement_badge" do %>
+  <div id="announcement_badge" data-announcement-target="badge">
+    <% if (unread_count = current_user.reload.unread_announcements.count) > 0 %>
+      <span class="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+        <%= unread_count %>
+      </span>
+    <% end %>
+  </div>
+<% end %>
+
+<%# Remove the read announcement from the list %>
+<%= turbo_stream.remove "announcement_#{@announcement.id}" %>
+
+<%# If no more unread announcements, update the popup content %>
+<% if current_user.reload.unread_announcements.none? %>
+  <%= turbo_stream.update "announcements_popup_content" do %>
+    <p class="text-sm text-gray-500">No unread announcements</p>
+  <% end %>
+<% end %>

@@ -25,6 +25,9 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.published.find(params[:id])
     @announcement.mark_as_read_by(current_user)
     
+    # Force a reload to get fresh counts
+    current_user.reload
+    
     respond_to do |format|
       format.html { redirect_back(fallback_location: announcements_path) }
       format.turbo_stream
@@ -33,7 +36,8 @@ class AnnouncementsController < ApplicationController
 
   # Mark all announcements as read
   def mark_all_read
-    current_user.unread_announcements.each do |announcement|
+    @announcements = current_user.unread_announcements
+    @announcements.each do |announcement|
       announcement.mark_as_read_by(current_user)
     end
     

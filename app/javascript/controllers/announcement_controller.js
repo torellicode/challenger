@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["button", "popup"]
+  static targets = ["button", "popup", "badge"]
   static values = {
     count: Number,
     visible: Boolean
@@ -11,24 +11,26 @@ export default class extends Controller {
     // Initialize the popup as hidden
     this.popupTarget.classList.add("hidden")
     this.visibleValue = false
+    
+    // Listen for turbo:stream events
+    document.addEventListener("turbo:stream-connect", this.updateCount.bind(this))
+  }
+
+  updateCount() {
+    // Get the current unread count from the badge
+    const badge = this.badgeTarget
+    if (badge) {
+      const count = parseInt(badge.textContent)
+      this.countValue = count
+    }
   }
 
   toggle() {
     this.visibleValue = !this.visibleValue
     if (this.visibleValue) {
       this.popupTarget.classList.remove("hidden")
-      // Optional: Add transition classes
-      requestAnimationFrame(() => {
-        this.popupTarget.classList.add("transform", "transition", "ease-out", "duration-100", "opacity-100", "scale-100")
-        this.popupTarget.classList.remove("opacity-0", "scale-95")
-      })
     } else {
-      // Optional: Add transition classes
-      this.popupTarget.classList.add("transform", "transition", "ease-in", "duration-75", "opacity-0", "scale-95")
-      this.popupTarget.classList.remove("opacity-100", "scale-100")
-      setTimeout(() => {
-        this.popupTarget.classList.add("hidden")
-      }, 75)
+      this.popupTarget.classList.add("hidden")
     }
   }
 

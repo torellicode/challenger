@@ -29,6 +29,10 @@ class User < ApplicationRecord
     Announcement.published.where.not(id: announcement_reads.select(:announcement_id))
   end
 
+  def unread_announcements_count
+    unread_announcements.count
+  end
+
   private
 
   # Private methods
