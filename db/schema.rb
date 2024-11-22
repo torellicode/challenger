@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_20_080430) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_22_033400) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "announcement_reads", force: :cascade do |t|
+    t.bigint "announcement_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["announcement_id"], name: "index_announcement_reads_on_announcement_id"
+    t.index ["user_id"], name: "index_announcement_reads_on_user_id"
+  end
 
   create_table "announcements", force: :cascade do |t|
     t.string "title"
@@ -39,5 +49,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_20_080430) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "announcement_reads", "announcements"
+  add_foreign_key "announcement_reads", "users"
   add_foreign_key "announcements", "users"
 end

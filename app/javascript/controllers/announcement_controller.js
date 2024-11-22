@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Annotate the controller with a description
 export default class extends Controller {
   static targets = ["button", "popup"]
   static values = {

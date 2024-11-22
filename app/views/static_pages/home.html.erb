@@ -12,7 +12,7 @@
 <%= link_to "admin dashboard", admin_dashboard_path, class: "text-indigo-600 hover:text-indigo-500" %>
 
 <div data-controller="announcement">
-  <% if (count = Announcement.recent_published.count) > 0 %>
+  <% if current_user && (count = current_user.unread_announcements.count) > 0 %>
     <button 
       data-announcement-target="button"
       data-action="announcement#toggle"
@@ -23,29 +23,42 @@
       </span>
     </button>
 
-    <% if latest = Announcement.recent_published.first %>
-      <div 
-        data-announcement-target="popup"
-        class="hidden fixed bottom-16 right-4 w-80 bg-white shadow-lg rounded-lg p-4 z-50">
-        <div class="flex justify-between items-start">
-          <h3 class="font-medium text-gray-900"><%= latest.title %></h3>
-          <button 
-            data-action="announcement#toggle" 
-            class="text-gray-400 hover:text-gray-500">
-            <span class="sr-only">Close</span>
-            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </button>
-        </div>
-        <p class="mt-1 text-sm text-gray-500">
-          <%= truncate(latest.content, length: 100) %>
-        </p>
-        <%= link_to "Read more", announcement_path(latest), 
-            class: "mt-2 inline-block text-sm text-indigo-600 hover:text-indigo-500" %>
+    <div 
+      data-announcement-target="popup"
+      class="hidden fixed bottom-16 right-4 w-80 bg-white shadow-lg rounded-lg p-4 z-50">
+      <div class="flex justify-between items-start">
+        <h3 class="font-medium text-gray-900">Unread Announcements</h3>
+        <button 
+          data-action="announcement#toggle" 
+          class="text-gray-400 hover:text-gray-500">
+          <span class="sr-only">Close</span>
+          <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
       </div>
-    <% end %>
-  <% else %>
-    <p>No announcements</p>
+
+      <div class="mt-2 space-y-4">
+        <% current_user.unread_announcements.limit(3).each do |announcement| %>
+          <div class="text-sm">
+            <h4 class="font-medium text-gray-900"><%= announcement.title %></h4>
+            <p class="mt-1 text-gray-500">
+              <%= truncate(announcement.content, length: 100) %>
+            </p>
+            <%= link_to "Read more", announcement_path(announcement), 
+                class: "mt-1 inline-block text-indigo-600 hover:text-indigo-500" %>
+          </div>
+        <% end %>
+
+        <% if count > 3 %>
+          <div class="pt-2 border-t border-gray-200">
+            <%= link_to announcements_path, 
+                class: "text-sm text-indigo-600 hover:text-indigo-500" do %>
+              View all <%= count %> unread announcements
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 </div>
