@@ -2,14 +2,24 @@ Rails.application.routes.draw do
   require 'sidekiq'
   require 'sidekiq/web'
 
+  # Devise routes
+  devise_for :users
   get '/login' => redirect('/users/sign_in')
   get '/signup' => redirect('/users/sign_up')
 
-  devise_for :users
+  # Root route
   root to: "static_pages#home"
 
-  # Root namespace
-  resources :announcements, only: [:index, :show]
+  # Public namespace
+  resources :announcements do # Announcements
+    member do
+      post :mark_read
+    end
+    collection do
+      post :mark_all_read
+    end
+  end
+
   # Admin Namespace
   namespace :admin do
     get '/', to: 'dashboard#index', as: :dashboard
@@ -22,12 +32,11 @@ Rails.application.routes.draw do
     end
   end
 
-  # application status and health check
+  # Application status and health check
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Sidekiq admin dashboard protected by authentication
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
   end
-  
 end

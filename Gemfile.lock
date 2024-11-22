@@ -116,6 +116,8 @@ GEM
     erubi (1.13.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    heroicon (1.0.0)
+      rails (>= 5.2)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
@@ -283,6 +285,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise
+  heroicon
   jbuilder
   jsbundling-rails
   pg (~> 1.1)

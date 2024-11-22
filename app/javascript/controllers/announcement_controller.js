@@ -15,7 +15,21 @@ export default class extends Controller {
 
   toggle() {
     this.visibleValue = !this.visibleValue
-    this.popupTarget.classList.toggle("hidden")
+    if (this.visibleValue) {
+      this.popupTarget.classList.remove("hidden")
+      // Optional: Add transition classes
+      requestAnimationFrame(() => {
+        this.popupTarget.classList.add("transform", "transition", "ease-out", "duration-100", "opacity-100", "scale-100")
+        this.popupTarget.classList.remove("opacity-0", "scale-95")
+      })
+    } else {
+      // Optional: Add transition classes
+      this.popupTarget.classList.add("transform", "transition", "ease-in", "duration-75", "opacity-0", "scale-95")
+      this.popupTarget.classList.remove("opacity-100", "scale-100")
+      setTimeout(() => {
+        this.popupTarget.classList.add("hidden")
+      }, 75)
+    }
   }
 
   // Close popup when clicking outside

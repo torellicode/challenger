@@ -30,14 +30,17 @@ gem "cssbundling-rails"
 gem "jbuilder"
 
 # Background jobs and caching
-gem 'sidekiq'
-gem 'redis'
+gem "sidekiq"
+gem "redis"
 
 # User authentication
-gem 'devise'
+gem "devise"
 
 # Authorization management
-gem 'pundit'
+gem "pundit"
+
+# Heroicons
+gem "heroicon"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
