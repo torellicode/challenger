@@ -6,3 +6,9 @@ import { application } from "./application"
 
 import AnnouncementController from "./announcement_controller"
 application.register("announcement", AnnouncementController)
+
+import NavController from "./nav_controller"
+application.register("nav", NavController)
+
+import DropdownController from "./dropdown_controller"
+application.register("dropdown", DropdownController)
