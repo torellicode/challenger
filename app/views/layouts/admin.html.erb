@@ -17,10 +17,11 @@
     
     <div class="h-[calc(100vh-4.125rem)] flex">
       <div data-controller="sidebar">
-          <div class="fixed h-full inset-y-16 inset-x-0 bg-gray-600 bg-opacity-75 sm:hidden transition-opacity duration-300 ease-linear hidden"
-             data-sidebar-target="overlay"
-             data-action="click->sidebar#close"></div>
+        <div class="fixed h-full inset-y-16 inset-x-0 bg-gray-600 bg-opacity-75 sm:hidden transition-opacity duration-300 ease-linear hidden"
+            data-sidebar-target="overlay"
+            data-action="click->sidebar#close"></div>
 
+        <%# Sidebar %>
         <div class="sm:hidden fixed bottom-4 right-4 z-40">
           <button type="button"
                   class="bg-blue-600 p-2 rounded-full text-white shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -29,7 +30,7 @@
           </button>
         </div>
 
-          <div class="fixed sm:sticky top-[4rem] h-[calc(100vh-4.125rem)] w-64 transition-transform duration-300 ease-in-out transform bg-blue-800 overflow-y-auto"
+          <div class="fixed sm:sticky top-[8rem] h-[calc(100vh-8rem)] w-64 -translate-x-full sm:translate-x-0 transition-transform duration-300 ease-in-out bg-blue-800 overflow-y-auto"
             data-sidebar-target="menu">
           <nav class="mt-5 px-2 space-y-1">
             <%= link_to admin_dashboard_path, 
@@ -56,7 +57,7 @@
           </div>
         </header>
 
-        <div class="bg-gray-50 rounded-tl-xl h-[calc(100%-4.125rem)] overflow-y-auto">
+        <div class="bg-gray-50 sm:rounded-tl-xl h-[calc(100%-4.125rem)] overflow-y-auto">
           <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-full">
             <%= yield %>
           </main>
