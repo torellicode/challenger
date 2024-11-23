@@ -4,8 +4,10 @@ export default class extends Controller {
   static targets = ["mobileMenu", "openButton", "closeButton"]
 
   connect() {
-    // Close menu and reset icons by default
-    this.closeMenu()
+    // Initialize menu state
+    this.mobileMenuTarget.classList.add("hidden")
+    this.openButtonTarget.classList.remove("hidden")
+    this.closeButtonTarget.classList.add("hidden")
     
     // Listen for turbo navigation to reset menu state
     document.addEventListener('turbo:visit', this.closeMenu.bind(this))
