@@ -1,0 +1,21 @@
+<div class="relative mt-1">
+  <button type="button"
+          data-action="nav#toggleDropdown"
+          data-dropdown-id="announcements"
+          class="p-1 text-gray-600 hover:text-gray-900 focus:outline-none">
+    <%= heroicon "bell", variant: :outline, options: { class: "h-6 w-6" } %>
+    <div id="announcement_badge" data-announcement-target="badge">
+      <% if (unread_count = current_user.unread_announcements.count) > 0 %>
+        <span class="absolute top-1 right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+          <%= unread_count %>
+        </span>
+      <% end %>
+    </div>
+  </button>
+  
+  <div data-nav-target="dropdown"
+        data-dropdown-id="announcements"
+        class="hidden absolute right-0 mt-3 w-80 bg-white rounded-lg shadow-lg py-1 ring-1 ring-black ring-opacity-5 z-50">
+    <%= render "shared/nav/announcement_menu" %>
+  </div>
+</div>

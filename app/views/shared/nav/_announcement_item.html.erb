@@ -1,15 +1,15 @@
 <div id="announcement_<%= announcement.id %>" class="flex justify-between items-start gap-4">
   <div class="min-w-0 flex-1">
     <%= link_to announcement.title, announcement_path(announcement), 
-        class: "text-sm font-medium text-gray-900 hover:text-indigo-600 line-clamp-2" %>
+        class: "text-sm font-medium text-gray-800 line-clamp-2" %>
     <p class="text-xs text-gray-500 mt-1">
       <%= time_ago_in_words(announcement.published_at) %> ago
     </p>
   </div>
   <%= button_to mark_read_announcement_path(announcement), 
       method: :post,
-      class: "flex-shrink-0 text-xs text-gray-500 hover:text-indigo-500 whitespace-nowrap",
+      class: "flex-shrink-0 text-xs text-gray-600 hover:text-blue-600 whitespace-nowrap",
       data: { turbo: true } do %>
-    Mark as read
+    <%= heroicon "check-circle", variant: :outline, options: { class: "inline w-5 h-5 mr-1" } %>
   <% end %>
 </div>

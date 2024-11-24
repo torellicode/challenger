@@ -1,20 +1,19 @@
 <div class="p-4">
-  <h3 class="text-lg font-medium text-gray-900 mb-4">Announcements</h3>
+  <h3 class="text-lg font-medium text-blue-600 mb-4">Announcements</h3>
   
   <div id="announcements_popup_content">
     <% if current_user&.unread_announcements.present? %>
       <div class="space-y-4">
         <% current_user.unread_announcements.limit(5).each do |announcement| %>
-          <%= render partial: "announcements/announcement_popup_item", locals: { announcement: announcement } %>
+          <%= render partial: "shared/nav/announcement_item", locals: { announcement: announcement } %>
         <% end %>
       </div>
       
-      <div class="mt-4 pt-4 border-t border-gray-200">
+      <div class="mt-4 pt-2 border-t border-gray-200">
         <%= button_to mark_all_read_announcements_path, 
             method: :post,
-            class: "text-sm text-indigo-600 hover:text-indigo-500",
+            class: "text-sm text-blue-600 hover:text-blue500",
             data: { turbo: true } do %>
-          <%= heroicon "check-circle", variant: :outline, options: { class: "inline w-4 h-4 mr-1" } %>
           Mark all as read
         <% end %>
       </div>
@@ -24,5 +23,5 @@
   </div>
   
   <%= link_to "View all announcements", announcements_path, 
-      class: "block mt-4 text-sm text-indigo-600 hover:text-indigo-500" %>
+      class: "block mt-2 text-sm text-blue-600 hover:text-blue-500" %>
 </div>
