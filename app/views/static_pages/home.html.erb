@@ -1,12 +1,16 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<div class="h-full">
+  <div class="">
+    <h1>StaticPages#home</h1>
+    <p>Find me in app/views/static_pages/home.html.erb</p>
 
-<% if current_user %>
-  <%= button_to "logout", destroy_user_session_path, method: :delete, class: "text-indigo-600 hover:text-indigo-500" %>
-  <%= link_to "edit profile", edit_user_registration_path, class: "text-indigo-600 hover:text-indigo-500" %>
-<% else %>
-  <%= link_to "login", new_user_session_path, class: "text-indigo-600 hover:text-indigo-500" %>
-  <%= link_to "signup", new_user_registration_path, class: "text-indigo-600 hover:text-indigo-500" %>
-<% end %>
+    <% if current_user %>
+      <%= button_to "logout", destroy_user_session_path, method: :delete, class: "text-indigo-600 hover:text-indigo-500" %>
+      <%= link_to "edit profile", edit_user_registration_path, class: "text-indigo-600 hover:text-indigo-500" %>
+    <% else %>
+      <%= link_to "login", new_user_session_path, class: "text-indigo-600 hover:text-indigo-500" %>
+      <%= link_to "signup", new_user_registration_path, class: "text-indigo-600 hover:text-indigo-500" %>
+    <% end %>
 
-<%= link_to "admin dashboard", admin_dashboard_path, class: "text-indigo-600 hover:text-indigo-500" %>
+    <%= link_to "admin dashboard", admin_dashboard_path, class: "text-indigo-600 hover:text-indigo-500" %>
+  </div>
+</div>

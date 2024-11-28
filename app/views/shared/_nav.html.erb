@@ -1,4 +1,4 @@
-<div class="flex justify-between items-center h-16 px-8 bg-white border-b shadow" data-controller="nav">
+<div class="h-16 flex justify-between items-center px-8 bg-white border-b shadow" data-controller="nav">
   <div class="flex items-center space-x-8 z-50">
     <%# Left side navigation %>
     <div>
@@ -12,7 +12,7 @@
   </div>
 
   <%# Right side navigation %>
-  <div class="flex items-center space-x-4 z-50">
+  <div class="flex items-center gap-x-2 z-50">
     <%# Announcements %>
     <div data-nav-target="dropdown" data-dropdown-id="announcements">
       <%= render "shared/nav/announcement_icon" %>

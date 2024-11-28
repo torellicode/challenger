@@ -1,13 +1,13 @@
 <div class="sm:hidden" data-controller="hamburger">
   <button type="button" 
-          class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500"
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-600"
           data-action="hamburger#toggle"
           aria-label="Main menu">
     <%# Hamburger icon %>
     <%= heroicon "bars-3", 
         variant: :outline, 
         options: { 
-          class: "h-6 w-6 transition-opacity",
+          class: "h-7 w-auto transition-opacity",
           "data-hamburger-target": "openIcon" 
         } 
     %>
@@ -16,7 +16,7 @@
     <%= heroicon "x-mark", 
         variant: :outline, 
         options: { 
-          class: "hidden h-6 w-6 transition-opacity",
+          class: "hidden h-7 w-auto transition-opacity",
           "data-hamburger-target": "closeIcon" 
         } 
     %>

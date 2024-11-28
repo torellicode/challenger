@@ -1,4 +1,4 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+<div class="h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-md w-full space-y-8">
     <div>
       <h2 class="mt-6 text-center text-3xl font-bold text-gray-900">
@@ -12,22 +12,34 @@
       <div class="rounded-md shadow-sm -space-y-px">
         <div class="mb-4">
           <%= f.label :username, class: "sr-only" %>
-          <%= f.text_field :username, autofocus: true, class: "appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm", placeholder: "Username" %>
+          <%= f.text_field :username, 
+            autofocus: true, 
+            class: "appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm", 
+            placeholder: "Username" %>
         </div>
 
         <div class="mb-4">
           <%= f.label :email, class: "sr-only" %>
-          <%= f.email_field :email, autocomplete: "email", class: "appearance-none rounded-t-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm", placeholder: "Email address" %>
+          <%= f.email_field :email, 
+            autocomplete: "email", 
+            class: "appearance-none rounded-none rounded-t-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm", 
+            placeholder: "Email address" %>
         </div>
 
         <div class="mb-4">
           <%= f.label :password, class: "sr-only" %>
-          <%= f.password_field :password, autocomplete: "new-password", class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm", placeholder: "Password (#{@minimum_password_length} characters minimum)" %>
+          <%= f.password_field :password, 
+            autocomplete: "new-password", 
+            class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm", 
+            placeholder: "Password (#{@minimum_password_length} characters minimum)" %>
         </div>
 
         <div>
           <%= f.label :password_confirmation, class: "sr-only" %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm", placeholder: "Confirm password" %>
+          <%= f.password_field :password_confirmation, 
+            autocomplete: "new-password", 
+            class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm", 
+            placeholder: "Confirm password" %>
         </div>
       </div>
 
