@@ -1,12 +1,12 @@
 <div class="hidden sm:flex items-center space-x-4">
   <% if current_user && user_signed_in? %>
-    <div data-controller="dropdown">
-      <button data-action="dropdown#toggle" class="flex items-center gap-x-1 text-sm">
+    <div>
+      <button data-action="nav#toggleDropdown", data-dropdown-id="account", class="flex items-center gap-x-1 text-sm">
         <%= current_user.username %>
         <%= heroicon "chevron-down", variant: :outline, options: { class: "h-4 w-4" } %>
       </button>
       
-      <div data-dropdown-target="menu" class="hidden absolute top-16 right-8 py-2 w-48 space-y-2 bg-white rounded-lg shadow-xl border border-gray-200">
+      <div data-dropdown-target="menu" class="hidden absolute top-16 right-8 py-2 w-48 space-y-2 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
         <%# Account items %>
         <div>
           <%= link_to edit_user_registration_path, data: { turbo: true } do %>

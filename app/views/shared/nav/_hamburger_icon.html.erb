@@ -24,7 +24,7 @@
 
   <%# Mobile Menu %>
   <div data-hamburger-target="menu"
-       class="hidden fixed inset-x-0 top-16 bg-white border-b shadow-lg">
+       class="hidden fixed inset-x-0 top-16 bg-white border-b shadow-lg z-50">
     <div class="py-2 space-y-1">
       <% if current_user&.admin? %>
         <%= link_to admin_dashboard_path, data: { turbo: true } do %>
