@@ -36,11 +36,10 @@ class AnnouncementsController < ApplicationController
 
   # Mark all announcements as read
   def mark_all_read
-    @announcements = current_user.unread_announcements
-    @announcements.each do |announcement|
+    current_user.unread_announcements.each do |announcement|
       announcement.mark_as_read_by(current_user)
     end
-    
+  
     respond_to do |format|
       format.html { redirect_back(fallback_location: announcements_path) }
       format.turbo_stream

@@ -1,0 +1,80 @@
+<div class="sm:hidden" data-controller="hamburger">
+  <button type="button" 
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500"
+          data-action="hamburger#toggle"
+          aria-label="Main menu">
+    <%# Hamburger icon %>
+    <%= heroicon "bars-3", 
+        variant: :outline, 
+        options: { 
+          class: "h-6 w-6 transition-opacity",
+          "data-hamburger-target": "openIcon" 
+        } 
+    %>
+    
+    <%# X icon %>
+    <%= heroicon "x-mark", 
+        variant: :outline, 
+        options: { 
+          class: "hidden h-6 w-6 transition-opacity",
+          "data-hamburger-target": "closeIcon" 
+        } 
+    %>
+  </button>
+
+  <%# Mobile Menu %>
+  <div data-hamburger-target="menu"
+       class="hidden fixed inset-x-0 top-16 bg-white border-b shadow-lg">
+    <div class="py-2 space-y-1">
+      <% if current_user&.admin? %>
+        <%= link_to admin_dashboard_path, data: { turbo: true } do %>
+          <div class="nav-mobile-item">
+            <span>Admin</span>
+            <%= heroicon "lock-closed", variant: :outline, options: { class: "h-5 w-auto" } %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% if current_user %>
+        <%= link_to root_path, data: { turbo: true } do %>
+          <div class="nav-mobile-item">
+            <span>Dashboard</span>
+            <%= heroicon "home", variant: :outline, options: { class: "h-5 w-auto" } %>
+          </div>
+        <% end %>
+
+        <%= link_to edit_user_registration_path, data: { turbo: true } do %>
+          <div class="nav-mobile-item">
+            <span>Account</span>
+            <%= heroicon "user", variant: :outline, options: { class: "h-5 w-auto" } %>
+          </div>
+        <% end %>
+
+        <div class="border-t border-gray-200 pt-2">
+          <%= button_to destroy_user_session_path, method: :delete, class: "text-red-600 w-full" do %>
+            <div class="nav-mobile-item">
+              <span>Sign out</span>
+              <%= heroicon "arrow-right-on-rectangle", variant: :outline, options: { class: "h-5 w-auto" } %>
+            </div>
+          <% end %>
+        </div>
+        
+            
+      <% else %>
+        <%= link_to new_user_session_path, data: { turbo: true } do %>
+          <div class="nav-mobile-item">
+            <span>Login</span>
+            <%= heroicon "arrow-right-on-rectangle", variant: :outline, options: { class: "h-5 w-auto" } %>
+          </div>
+        <% end %>
+
+        <%= link_to new_user_registration_path, data: { turbo: true } do %>
+          <div class="nav-mobile-item">
+            <span>Signup</span>
+            <%= heroicon "user-plus", variant: :outline, options: { class: "h-5 w-auto" } %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

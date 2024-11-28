@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .account-dropdown-item {
+    @apply flex justify-between items-center w-full px-4 py-1 hover:bg-gray-100 
+    border-l-4 border-transparent hover:border-blue-500 text-sm;
+  }
+  
+  .hamburger-dropdown-item {
+    @apply flex justify-between items-center w-full px-4 py-2 hover:bg-gray-100 
+    border-l-8 border-transparent hover:border-blue-500;
+  }
+
+  .login-button {
+    @apply px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition duration-150;
+  }
+
+  .signup-button {
+    @apply px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition duration-150;
+  }
+
+  .nav-desktop-item {
+    @apply flex items-center border-b-4 border-transparent h-16 hover:border-blue-600 text-sm;
+  }
+
+  .nav-mobile-item {
+    @apply flex justify-between items-center w-full px-4 py-2 border-l-8 border-transparent hover:border-blue-600 hover:bg-gray-100;
+  }
+}

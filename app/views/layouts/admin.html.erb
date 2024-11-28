@@ -39,9 +39,15 @@
               Dashboard
             <% end %>
 
+            <%= link_to admin_users_path,
+              class: "#{current_page?(admin_users_path) ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white'} group flex items-center px-2 py-2 text-sm font-medium rounded-md" do %>
+            <%= heroicon "users", options: { class: "mr-3 flex-shrink-0 h-5 w-5" } %>
+            Users
+          <% end %>
+
             <%= link_to admin_announcements_path,
                 class: "#{current_page?(admin_announcements_path) ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white'} group flex items-center px-2 py-2 text-sm font-medium rounded-md" do %>
-              <%= heroicon "bell", variant: :outline, options: { class: "mr-3 flex-shrink-0 h-5 w-5" } %>
+              <%= heroicon "bell", options: { class: "mr-3 flex-shrink-0 h-5 w-5" } %>
               Announcements
             <% end %>
           </nav>

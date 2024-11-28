@@ -1,21 +1,62 @@
-<div class="relative mt-1">
-  <button type="button"
-          data-action="nav#toggleDropdown"
-          data-dropdown-id="announcements"
-          class="p-1 text-gray-600 hover:text-gray-900 focus:outline-none">
-    <%= heroicon "bell", variant: :outline, options: { class: "h-6 w-6" } %>
-    <div id="announcement_badge" data-announcement-target="badge">
-      <% if (unread_count = current_user.unread_announcements.count) > 0 %>
-        <span class="absolute top-1 right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-          <%= unread_count %>
-        </span>
-      <% end %>
+<% if current_user && user_signed_in? %>
+  <div class="relative" data-controller="dropdown">
+    <button type="button"
+            data-action="dropdown#toggle"
+            class="p-1 text-gray-600 hover:text-gray-900 focus:outline-none relative">
+      <%= heroicon "bell", variant: :outline, options: { class: "h-6 w-6" } %>
+      
+      <%# Notification Badge %>
+      <div id="announcement_badge">
+        <% if current_user && (unread_count = current_user.unread_announcements.count) > 0 %>
+          <span class="absolute top-1 right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+            <%= unread_count %>
+          </span>
+        <% end %>
+      </div>
+    </button>
+
+    <%# Dropdown Menu %>
+    <div data-dropdown-target="menu"
+        class="hidden fixed inset-x-0 top-16 
+                sm:absolute sm:right-0 sm:left-auto sm:top-full sm:w-80
+                bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-50 
+                sm:rounded-lg sm:mt-4">
+      <div class="p-4">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-medium text-gray-900">Announcements</h3>
+          
+          <%# Mark all as read button %>
+          <div id="mark_all_read_button">
+            <% if current_user && current_user&.unread_announcements.any? %>
+              <%= button_to mark_all_read_announcements_path,
+                  method: :post,
+                  class: "text-sm text-blue-600 hover:text-blue-800",
+                  data: { turbo: true } do %>
+                Mark all as read
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <%# Announcements List %>
+        <div class="space-y-4 max-h-[60vh] overflow-y-auto" id="announcements_list">
+          <% if current_user && current_user&.unread_announcements.any? %>
+            <% current_user.unread_announcements.limit(5).each do |announcement| %>
+              <%= render "shared/nav/announcement_item", announcement: announcement %>
+            <% end %>
+          <% else %>
+            <p class="text-sm text-gray-500">No unread announcements</p>
+          <% end %>
+        </div>
+
+        <%# View All Link %>
+        <div class="mt-4 pt-4 border-t border-gray-200">
+          <%= link_to announcements_path, 
+              class: "text-sm text-blue-600 hover:text-blue-800" do %>
+            View all announcements
+          <% end %>
+        </div>
+      </div>
     </div>
-  </button>
-  
-  <div data-nav-target="dropdown"
-        data-dropdown-id="announcements"
-        class="hidden absolute right-0 mt-3 w-80 bg-white rounded-lg shadow-lg py-1 ring-1 ring-black ring-opacity-5 z-50">
-    <%= render "shared/nav/announcement_menu" %>
   </div>
-</div>
+<% end %>

@@ -1,48 +1,29 @@
-<nav class="bg-white border-b border-gray-200 sticky top-0 z-50" data-controller="nav">
-  <%# Overlay for mobile menu %>
-  <div data-nav-target="overlay" class="hidden fixed top-16 inset-0 bg-gray-800 bg-opacity-75 z-40"></div>
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16">
-      <%# Left side: Logo and navigation %>
-      <div class="flex">
-        <%# Logo %>
-        <%= render "shared/nav/logo" %>
-        <%# Main navigation - Desktop %>
-        <%= render "shared/nav/nav_desktop_items" %>
-      </div>
-
-      <%# Right side: User actions %>
-      <div class="flex items-center space-x-4">
-        <% if current_user %>
-          <%# Announcements icon %>
-          <%= render "shared/nav/announcement_icon" %>
-          <%# User account dropdown - Desktop %>
-          <%= render "shared/nav/user_dropdown_desktop" %>
-          <%# Hamburger icon - Mobile %>
-          <%= render "shared/nav/mobile_icon" %>
-        <% else %>
-          <%# Login/Signup - Desktop %>
-          <%= render "shared/nav/login_signup_desktop" %>
-          <%# Login/Signup - Mobile %>
-          <%= render"shared/nav/login_signup_mobile" %>
-        <% end %>
-      </div>
-    </div>
-
-    <%# Mobile menu %>
-    <div class="sm:hidden hidden absolute top-16 inset-x-0 bg-white shadow-lg border-b border-gray-200 z-50" 
-         data-nav-target="mobileMenu">
-      <%# Navigation Links %>
-      <%= render "shared/nav/nav_mobile_items" %>
-
-      <% if current_user %>
-        <%# User account dropdown - Mobile %>
-        <%= render "shared/nav/user_dropdown_mobile" %>
-      <% else %>
-        <%# Login/Signup links - Mobile %>
-        <%= render "shared/nav/mobile_login_signup_links" %>
+<div class="flex justify-between items-center h-16 px-8 bg-white border-b shadow">
+  <div class="flex items-center space-x-8 z-50">
+    <%# Left side navigation %>
+    <div>
+      <%= link_to root_path do %>
+        <%= image_tag "logo.png", alt: "Logo", class: "h-10" %>
       <% end %>
     </div>
+
+    <%# Desktop items %>
+    <%= render "shared/nav/desktop_items"%>
   </div>
-</nav>
+
+  <%# Right side navigation %>
+  <div class="flex items-center space-x-4 z-50">
+    <%# Announcements %>
+    <div>
+      <%= render "shared/nav/announcement_icon" %>
+    </div>
+
+    <%# Desktop %>
+    <%= render "shared/nav/desktop_account" %>
+
+    <%# Mobile %>
+    <div class="flex items-center space-x-2">
+      <%= render "shared/nav/hamburger_icon" %>
+    </div>
+  </div>
+</div>

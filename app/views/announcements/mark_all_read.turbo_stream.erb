@@ -1,8 +1,14 @@
-<%# Remove the badge entirely when all are read %>
+<%# Clear the badge %>
 <%= turbo_stream.replace "announcement_badge" do %>
+  <div id="announcement_badge">
+  </div>
 <% end %>
 
-<%# Update the popup content %>
-<%= turbo_stream.update "announcements_popup_content" do %>
+<%# Update the announcements list %>
+<%= turbo_stream.update "announcements_list" do %>
   <p class="text-sm text-gray-500">No unread announcements</p>
+<% end %>
+
+<%# Remove the mark all read button %>
+<%= turbo_stream.update "mark_all_read_button" do %>
 <% end %>
