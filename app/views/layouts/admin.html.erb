@@ -7,7 +7,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
   <body class="h-screen bg-blue-800 overflow-hidden">
@@ -16,43 +16,7 @@
     
     
     <div class="h-[calc(100vh-4.125rem)] flex">
-      <div data-controller="sidebar">
-        <div class="fixed h-full inset-y-16 inset-x-0 bg-gray-600 bg-opacity-75 sm:hidden transition-opacity duration-300 ease-linear hidden"
-            data-sidebar-target="overlay"
-            data-action="click->sidebar#close"></div>
-
-        <%# Sidebar %>
-        <div class="sm:hidden fixed bottom-4 right-4 z-40">
-          <button type="button"
-                  class="bg-blue-600 p-2 rounded-full text-white shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  data-action="sidebar#toggle">
-            <%= heroicon "bars-3", options: { class: "w-6 h-6" } %>
-          </button>
-        </div>
-
-          <div class="fixed sm:sticky top-[8rem] h-[calc(100vh-8rem)] w-64 -translate-x-full sm:translate-x-0 transition-transform duration-300 ease-in-out bg-blue-800 overflow-y-auto"
-            data-sidebar-target="menu">
-          <nav class="mt-5 px-2 space-y-1">
-            <%= link_to admin_dashboard_path, 
-                class: "#{current_page?(admin_dashboard_path) ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white'} group flex items-center px-2 py-2 text-sm font-medium rounded-md" do %>
-              <%= heroicon "home", options: { class: "mr-3 flex-shrink-0 h-5 w-5" } %>
-              Dashboard
-            <% end %>
-
-            <%= link_to admin_users_path,
-              class: "#{current_page?(admin_users_path) ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white'} group flex items-center px-2 py-2 text-sm font-medium rounded-md" do %>
-            <%= heroicon "users", options: { class: "mr-3 flex-shrink-0 h-5 w-5" } %>
-            Users
-          <% end %>
-
-            <%= link_to admin_announcements_path,
-                class: "#{current_page?(admin_announcements_path) ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white'} group flex items-center px-2 py-2 text-sm font-medium rounded-md" do %>
-              <%= heroicon "bell", options: { class: "mr-3 flex-shrink-0 h-5 w-5" } %>
-              Announcements
-            <% end %>
-          </nav>
-        </div>
-      </div>
+      <%= render "shared/sidebar" %>
 
       <div class="flex-1 overflow-hidden">
         <header class="bg-blue-800 text-white sticky top-0">
