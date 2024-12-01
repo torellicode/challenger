@@ -9,7 +9,7 @@
       <div data-dropdown-target="menu" class="hidden absolute top-16 right-8 py-2 w-48 space-y-2 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
         <%# Account items %>
         <div>
-          <%= link_to edit_user_registration_path, data: { turbo: true } do %>
+          <%= link_to edit_user_registration_path, data: { turbo: false } do %>
             <div class="account-dropdown-item">
               <span>Account</span>
               <%= heroicon "user", variant: :outline, options: { class: "h-5 w-auto" } %>
