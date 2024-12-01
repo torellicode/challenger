@@ -32,6 +32,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # Stripe routes
+  post 'stripe_webhooks', to: 'stripe_webhooks#create'
+
   # Application status and health check
   get "up" => "rails/health#show", as: :rails_health_check
 

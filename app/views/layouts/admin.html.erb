@@ -8,16 +8,18 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
+    <%# Stripe %> 
+    <script src="https://js.stripe.com/v3/"></script>
   </head>
 
   <body class="h-full">
     <div class="h-full flex flex-col">
-      <%# Sticky Nav %>
       <div class="sticky top-0 z-50">
         <%= render "shared/nav" %>
       </div>
 
-      <%# Main Content Area - Takes remaining height %>
+      <%# Main Content Area %>
       <div class="flex-1 flex flex-col overflow-hidden">
         <%# Header %>
         <div class="flex-none bg-blue-800 text-white">
@@ -28,7 +30,7 @@
           </div>
         </div>
 
-        <%# Content Area with Sidebar %>
+        <%# Content Area %>
         <div class="flex-1 flex overflow-hidden">
           <%# Sidebar %>
           <div class="flex-none">
@@ -44,6 +46,11 @@
           </div>
         </div>
       </div>
+
+      <%# Stripe %>
+      <script>
+        const stripe = Stripe('<%= stripe_public_key %>');
+      </script>
     </div>
   </body>
 </html>

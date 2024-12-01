@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  helper :stripe
+
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
