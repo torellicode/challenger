@@ -1,0 +1,81 @@
+<% content_for :header, 'Products' %>
+
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="mb-4 flex justify-end text-blue-600">
+    <%= link_to new_admin_product_path, 
+        class: "inline-flex items-center gap-2" do %>
+      <%= heroicon "plus-circle", variant: :outline, options: { class: "h-5 w-5" } %>
+      <span>New Product</span>
+    <% end %>
+  </div>
+
+  <%# Tabs %>
+  <div class="mt-4 border-b border-gray-200">
+    <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+      <%= link_to admin_products_path(view: 'active'), 
+          class: "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm #{params[:view] != 'archived' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}" do %>
+        Active
+        <span class="ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium bg-gray-100 text-gray-900">
+          <%= @products.active.count %>
+        </span>
+      <% end %>
+
+      <%= link_to admin_products_path(view: 'archived'), 
+          class: "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm #{params[:view] == 'archived' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}" do %>
+        Archived
+        <span class="ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium bg-gray-100 text-gray-900">
+          <%= @products.archived.count %>
+        </span>
+      <% end %>
+    </nav>
+  </div>
+
+  <%# Products Table %>
+  <div class="mt-8 flex flex-col">
+    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-300">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3.5 text-left text-sm font-semibold text-gray-900">Name</th>
+                <th scope="col" class="px-6 py-3.5 text-left text-sm font-semibold text-gray-900">Price</th>
+                <th scope="col" class="px-6 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                <th scope="col" class="px-6 py-3.5 text-left text-sm font-semibold text-gray-900">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+              <% products = params[:view] == 'archived' ? @products.archived : @products.active %>
+              <% if products.any? %>
+                <% products.each do |product| %>
+                  <tr>
+                    <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
+                      <%= product.name %>
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                      $<%= product.price_in_dollars %>
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= product.published? ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+                        <%= product.archived? ? 'Archived' : (product.published? ? 'Published' : 'Draft') %>
+                      </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <%= render "admin/products/actions", product: product %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr>
+                  <td colspan="4" class="px-6 py-4 text-sm text-gray-500 text-center">
+                    No <%= params[:view] == 'archived' ? 'archived' : 'active' %> products found.
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

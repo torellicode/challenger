@@ -34,6 +34,12 @@
         <%= heroicon "bell", options: { class: "mr-3 flex-shrink-0 h-5 w-5" } %>
         Announcements
       <% end %>
+
+      <%= link_to admin_products_path,
+          class: "#{current_page?(admin_products_path) ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white'} group flex items-center px-2 py-2 text-sm font-medium rounded-md" do %>
+        <%= heroicon "shopping-bag", options: { class: "mr-3 flex-shrink-0 h-5 w-5" } %>
+        Products
+      <% end %>
     </nav>
   </div>
 </div>

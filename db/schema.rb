@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_22_033400) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_02_010800) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_22_033400) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_announcements_on_user_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.integer "price_in_cents", null: false
+    t.string "stripe_product_id"
+    t.string "stripe_price_id"
+    t.boolean "published", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "product_type", default: "subscription"
+    t.string "billing_period"
+    t.boolean "archived", default: false
+    t.index ["archived"], name: "index_products_on_archived"
+    t.index ["published"], name: "index_products_on_published"
+    t.index ["stripe_price_id"], name: "index_products_on_stripe_price_id", unique: true
+    t.index ["stripe_product_id"], name: "index_products_on_stripe_product_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

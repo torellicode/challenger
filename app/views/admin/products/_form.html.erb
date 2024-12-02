@@ -1,0 +1,77 @@
+<%= form_with(model: [:admin, product], class: "space-y-8", data: { controller: "product" }) do |form| %>
+  <div class="space-y-8 divide-y divide-gray-200">
+    <div>
+      <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <%# Name field %>
+        <div class="sm:col-span-3">
+          <%= form.label :name, class: "form-label" %>
+          <div class="mt-1">
+            <%= form.text_field :name, 
+                class: "form-field",
+                placeholder: "Enter product name" %>
+          </div>
+        </div>
+
+        <%# Price field %>
+        <div class="sm:col-span-3">
+          <%= form.label :price_in_cents, "Price (in cents)", class: "form-label" %>
+          <div class="mt-1">
+            <%= form.number_field :price_in_cents, 
+                class: "form-field",
+                placeholder: "e.g., 2000 for $20.00" %>
+          </div>
+        </div>
+
+        <%# Product Type field %>
+        <div class="sm:col-span-3">
+          <%= form.label :product_type, class: "form-label" %>
+          <div class="mt-1">
+            <%= form.select :product_type,
+                options_for_select([
+                  ['One-time Purchase', 'one_time'],
+                  ['Subscription', 'subscription']
+                ], product.product_type),
+                {},
+                class: "form-field",
+                data: { action: "change->product#toggleBillingPeriod" } %>
+          </div>
+        </div>
+
+        <%# Billing Period field %>
+        <div class="sm:col-span-3" 
+             data-product-target="billingPeriod"
+             style="<%= product.product_type == 'subscription' ? '' : 'display: none;' %>">
+          <%= form.label :billing_period, class: "form-label" %>
+          <div class="mt-1">
+            <%= form.select :billing_period,
+                options_for_select([
+                  ['Monthly', 'month'],
+                  ['Yearly', 'year']
+                ], product.billing_period),
+                { include_blank: 'Select billing period' },
+                class: "form-field" %>
+          </div>
+        </div>
+
+        <%# Description field %>
+        <div class="sm:col-span-6">
+          <%= form.label :description, class: "form-label" %>
+          <div class="mt-1">
+            <%= form.text_area :description, rows: 4,
+                class: "form-field",
+                placeholder: "Enter product description" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pt-4">
+    <div class="flex justify-end gap-3">
+      <%= link_to "Cancel", admin_products_path, 
+          class: "btn-cancel" %>
+      
+      <%= form.submit class: "btn-blue" %>
+    </div>
+  </div>
+<% end %>

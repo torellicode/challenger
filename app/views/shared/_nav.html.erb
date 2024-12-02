@@ -2,7 +2,7 @@
   <div class="flex items-center space-x-8 z-50">
     <%# Left side navigation %>
     <div>
-      <%= link_to root_path do %>
+      <%= link_to root_path, data: { turbo: false } do %>
         <%= image_tag "logo.png", alt: "Logo", class: "h-10" %>
       <% end %>
     </div>

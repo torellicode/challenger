@@ -18,3 +18,6 @@ application.register("sidebar", SidebarController)
 
 import HamburgerController from "./hamburger_controller"
 application.register("hamburger", HamburgerController)
+
+import ProductController from "./product_controller"
+application.register("product", ProductController)

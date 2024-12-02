@@ -18,7 +18,7 @@
   }
 
   .signup-button {
-    @apply px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition duration-150;
+    @apply px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition duration-150;
   }
 
   .nav-desktop-item {
@@ -27,5 +27,21 @@
 
   .nav-mobile-item {
     @apply flex justify-between items-center w-full px-4 py-2 border-l-8 border-transparent hover:border-blue-600 hover:bg-gray-100;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+
+  .form-field {
+    @apply mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50;
+  }
+
+  .btn-blue {
+    @apply bg-blue-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer;
+  }
+
+  .btn-cancel {
+    @apply bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mr-2;
   }
 }

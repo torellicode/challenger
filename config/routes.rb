@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       post :mark_all_read
     end
   end
+  resources :products, only: [:index, :show] # Products
 
   # Admin Namespace
   namespace :admin do
@@ -28,6 +29,14 @@ Rails.application.routes.draw do
       member do
         post :publish
         post :unpublish
+      end
+    end
+    resources :products do # Product Management
+      member do
+        post :publish
+        post :unpublish
+        post :archive
+        post :unarchive
       end
     end
   end

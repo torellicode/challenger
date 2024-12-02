@@ -1,0 +1,40 @@
+<div class="flex gap-2 mt-1">
+  <% if product.archived? %>
+    <%= button_to unarchive_admin_product_path(product), 
+        method: :post, 
+        class: "text-green-600 hover:text-green-800", 
+        title: "Restore" do %>
+      <%= heroicon "arrow-path", options: { class: "h-5 w-auto" } %>
+    <% end %>
+  <% else %>
+    <% if product.published? %>
+      <%= button_to unpublish_admin_product_path(product), 
+          method: :post, 
+          class: "text-yellow-600 hover:text-yellow-800", 
+          title: "Unpublish" do %>
+        <%= heroicon "eye-slash", options: { class: "h-5 w-auto" } %>
+      <% end %>
+    <% else %>
+      <%= button_to publish_admin_product_path(product), 
+          method: :post, 
+          class: "text-green-600 hover:text-green-800", 
+          title: "Publish" do %>
+        <%= heroicon "eye", options: { class: "h-5 w-auto" } %>
+      <% end %>
+    <% end %>
+    
+    <%= link_to edit_admin_product_path(product), 
+        class: "text-blue-600 hover:text-blue-800", 
+        title: "Edit" do %>
+      <%= heroicon "pencil-square", options: { class: "h-5 w-auto" } %>
+    <% end %>
+    
+    <%= button_to archive_admin_product_path(product), 
+        method: :post, 
+        class: "text-red-600 hover:text-red-800", 
+        title: "Archive", 
+        data: { confirm: "Are you sure?" } do %>
+      <%= heroicon "archive-box", options: { class: "h-5 w-auto" } %>
+    <% end %>
+  <% end %>
+</div>
