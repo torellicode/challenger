@@ -1,4 +1,4 @@
-<div class="h-full">
+<div class="min-h-full">
   <div class="">
     <h1>StaticPages#home</h1>
     <p>Find me in app/views/static_pages/home.html.erb</p>
@@ -12,5 +12,19 @@
     <% end %>
 
     <%= link_to "admin dashboard", admin_dashboard_path, class: "text-indigo-600 hover:text-indigo-500" %>
+    <%= link_to "products", products_path, class: "text-indigo-600 hover:text-indigo-500" %>
+  </div>
+
+  <%# CTA %>
+  <div class="mx-auto mt-16 max-w-4xl rounded-2xl p-8">
+    <div class="text-center">
+      <h3 class="text-2xl font-bold text-gray-900">Already participating in challenges?</h3>
+      <p class="mt-4 text-lg text-gray-600">
+        Take the next step and start creating your own challenges. Join our community of creators today.
+      </p>
+      <div class="mt-6">
+        <%= link_to "Start Creating", "#", class: "inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700" %>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="hidden sm:flex items-center space-x-4">
+<div class="hidden sm:flex items-center space-x-3">
   <% if current_user && user_signed_in? %>
     <div>
       <button data-action="nav#toggleDropdown", data-dropdown-id="account", class="flex items-center gap-x-1 text-sm">
@@ -6,27 +6,32 @@
         <%= heroicon "chevron-down", variant: :outline, options: { class: "h-4 w-4" } %>
       </button>
       
-      <div data-dropdown-target="menu" class="hidden absolute top-16 right-8 py-2 w-48 space-y-2 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+      <div data-dropdown-target="menu" class="hidden absolute top-16 right-8 py-2 sm:w-80 space-y-2 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
         <%# Account items %>
-        <div>
+        <% if current_user.role == "standard" %>
+          <%= link_to products_path do %>
+            <div class="account-dropdown-item">
+              <span>Products</span>
+              <%= heroicon "shopping-bag", variant: :outline, options: { class: "h-5 w-auto" } %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <%= link_to "#" do %>
+          <div class="account-dropdown-item">
+            <span>Contact</span>
+            <%= heroicon "envelope", variant: :outline, options: { class: "h-5 w-auto" } %>
+          </div>
+        <% end %>
+
+        <div class="border-t border-gray-200 pt-2">
           <%= link_to edit_user_registration_path, data: { turbo: false } do %>
             <div class="account-dropdown-item">
               <span>Account</span>
               <%= heroicon "user", variant: :outline, options: { class: "h-5 w-auto" } %>
             </div>
           <% end %>
-        </div>
-
-        <div>
-          <%= link_to edit_user_registration_path do %>
-            <div class="account-dropdown-item">
-              <span>Placeholder</span>
-              <%= heroicon "arrows-pointing-out", variant: :outline, options: { class: "h-5 w-auto" } %>
-            </div>
-          <% end %>
-        </div>
-        
-        <div class="border-t border-gray-200 pt-2">
+          
           <%= button_to destroy_user_session_path, method: :delete, class: "account-dropdown-item text-red-600" do %>
             <span>Sign out</span>
             <%= heroicon "arrow-right-on-rectangle", variant: :outline, options: { class: "h-5 w-auto" } %>

@@ -4,7 +4,7 @@
 
 @layer components {
   .account-dropdown-item {
-    @apply flex justify-between items-center w-full px-4 py-1 hover:bg-gray-100 
+    @apply flex justify-between items-center w-full px-4 py-2 hover:bg-gray-100 
     border-l-4 border-transparent hover:border-blue-500 text-sm;
   }
   

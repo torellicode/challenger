@@ -1,9 +1,16 @@
-<div class="hidden sm:flex items-center space-x-5">
-  <%= link_to "Dashboard", root_path, 
+<div class="hidden sm:flex items-center space-x-3 md:space-x-5 lg:space-x-8">
+	<%= link_to "Challenges", "#", 
+          class: "nav-desktop-item", data: { turbo: false } %>
+	<%= link_to "Communities", "#", 
           class: "nav-desktop-item", data: { turbo: false } %>
 
   <% if current_user && user_signed_in? %>
-      <%= link_to "Admin", admin_dashboard_path, 
-          class: "nav-desktop-item", data: { turbo: false } if current_user.admin? %>
+		<%= link_to "Admin", admin_dashboard_path, 
+				class: "nav-desktop-item", data: { turbo: false } if current_user.admin? %>
+  <% else %>
+		<%= link_to "Products", products_path, 
+				class: "nav-desktop-item", data: { turbo: false } %>
+		<%= link_to "Contact", "#", 
+				class: "nav-desktop-item", data: { turbo: false } %>
   <% end %>
 </div>
