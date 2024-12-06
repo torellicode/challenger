@@ -53,6 +53,15 @@
           </div>
         </div>
 
+        <%# Role field %>
+        <div>
+          <%= form.label :role, class: "block text-sm font-medium text-gray-700" %>
+          <%= form.select :role, 
+              Product.available_roles,
+              { include_blank: 'Select a role' },
+              class: "form-field" %>
+        </div>
+
         <%# Description field %>
         <div class="sm:col-span-6">
           <%= form.label :description, class: "form-label" %>

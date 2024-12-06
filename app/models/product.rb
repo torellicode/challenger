@@ -7,11 +7,16 @@ class Product < ApplicationRecord
   validates :stripe_price_id, uniqueness: true, allow_nil: true
   validates :product_type, presence: true, inclusion: { in: %w[one_time subscription] }
   validates :billing_period, presence: true, if: :subscription?
+  validates :role, presence: true, inclusion: { in: %w[basic pro] }
+
+  # Attributes
+  attribute :role, :string, default: 'basic'
 
   # Callbacks
   after_create :sync_with_stripe
   after_update :update_stripe_product, if: :product_details_changed?
   before_destroy :cleanup_stripe_product
+  before_validation :ensure_role_is_set
 
   # Scopes
   scope :active, -> { where(archived: false) }
@@ -23,36 +28,65 @@ class Product < ApplicationRecord
     product_type == 'subscription'
   end
 
+  def self.available_roles
+    [
+      ['Basic', 'basic'],
+      ['Pro', 'pro']
+    ]
+  end
+
   def sync_with_stripe
-    return if stripe_product_id.present?
-
-    stripe_product = Stripe::Product.create(
-      name: name,
-      description: description,
-      active: published
-    )
-
+    # Create or update Stripe product
+    stripe_product = if stripe_product_id.present?
+      Stripe::Product.update(
+        stripe_product_id,
+        {
+          name: name,
+          description: description,
+          active: published
+        }
+      )
+    else
+      Stripe::Product.create(
+        {
+          name: name,
+          description: description,
+          active: published
+        }
+      )
+    end
+  
+    # Create new price
     stripe_price = if subscription?
       Stripe::Price.create(
-        product: stripe_product.id,
-        unit_amount: price_in_cents,
-        currency: 'usd',
-        recurring: {
-          interval: billing_period # 'month' or 'year'
+        {
+          product: stripe_product.id,
+          unit_amount: price_in_cents,
+          currency: 'usd',
+          recurring: {
+            interval: billing_period # 'month' or 'year'
+          }
         }
       )
     else
       Stripe::Price.create(
-        product: stripe_product.id,
-        unit_amount: price_in_cents,
-        currency: 'usd'
+        {
+          product: stripe_product.id,
+          unit_amount: price_in_cents,
+          currency: 'usd'
+        }
       )
     end
-
-    update_columns(
-      stripe_product_id: stripe_product.id,
-      stripe_price_id: stripe_price.id
-    )
+  
+  # Update local record with Stripe IDs
+  update_columns(
+    stripe_product_id: stripe_product.id,
+    stripe_price_id: stripe_price.id
+  )
+  rescue Stripe::StripeError => e
+    Rails.logger.error "Stripe Error: #{e.message}"
+    errors.add(:base, "Stripe Error: #{e.message}")
+    false
   end
 
   def update_stripe_product
@@ -166,5 +200,9 @@ class Product < ApplicationRecord
         raise e
       end
     end
+  end
+
+  def ensure_role_is_set
+    self.role ||= 'basic'
   end
 end

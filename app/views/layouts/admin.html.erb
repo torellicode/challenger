@@ -8,9 +8,6 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-
-    <%# Stripe %> 
-    <script src="https://js.stripe.com/v3/"></script>
   </head>
 
   <body class="h-full">
@@ -48,11 +45,6 @@
           </div>
         </div>
       </div>
-
-      <%# Stripe %>
-      <script>
-        const stripe = Stripe('<%= stripe_public_key %>');
-      </script>
     </div>
   </body>
 </html>

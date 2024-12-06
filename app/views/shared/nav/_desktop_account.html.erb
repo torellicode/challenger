@@ -32,7 +32,7 @@
             </div>
           <% end %>
           
-          <%= button_to destroy_user_session_path, method: :delete, class: "account-dropdown-item text-red-600" do %>
+          <%= button_to destroy_user_session_path, data: { turbo: false }, method: :delete, class: "account-dropdown-item text-red-600" do %>
             <span>Sign out</span>
             <%= heroicon "arrow-right-on-rectangle", variant: :outline, options: { class: "h-5 w-auto" } %>
           <% end %>

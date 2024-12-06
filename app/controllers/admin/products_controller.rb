@@ -72,7 +72,8 @@ module Admin
         :description, 
         :price_in_cents, 
         :product_type, 
-        :billing_period
+        :billing_period,
+        :role
       )
     end
   end

@@ -20,6 +20,16 @@ Rails.application.routes.draw do
     end
   end
   resources :products, only: [:index, :show] # Products
+  resources :checkouts, only: [:create] do
+    collection do
+      get :success
+      get :cancel
+    end
+  end
+  # Stripe webhooks
+  namespace :webhooks do
+    post 'stripe', to: 'stripe#create'
+  end
 
   # Admin Namespace
   namespace :admin do
@@ -40,9 +50,6 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  # Stripe routes
-  post 'stripe_webhooks', to: 'stripe_webhooks#create'
 
   # Application status and health check
   get "up" => "rails/health#show", as: :rails_health_check

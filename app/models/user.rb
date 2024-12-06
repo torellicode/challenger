@@ -8,21 +8,32 @@ class User < ApplicationRecord
   has_many :announcements, dependent: :destroy
   has_many :announcement_reads, dependent: :destroy
   has_many :read_announcements, through: :announcement_reads, source: :announcement
+  has_many :subscriptions
+  has_many :orders
+  has_one :active_subscription, -> { active }, class_name: 'Subscription'
 
   # User roles
   enum role: {
-    standard: 0,
-    basic: 1,
-    pro: 2,
-    admin: 3
+    standard: 'standard',
+    basic: 'basic',
+    pro: 'pro',
+    admin: 'admin'
   }
+
+  # Attributes
+  attribute :role, :string, default: 'standard'
 
   # Validations
   validates :username, presence: true, uniqueness: true
+  # validates :stripe_payment_intent, uniqueness: true, allow_nil: true
+  # validates :status, presence: true, inclusion: { in: %w[pending paid failed] }
 
   # Callbacks
   after_initialize :set_default_role, if: :new_record?
   before_save :titleize_username
+
+  # Scopes
+  scope :paid, -> { where(status: 'paid') }
 
   # Methods
   def unread_announcements
@@ -31,6 +42,14 @@ class User < ApplicationRecord
 
   def unread_announcements_count
     unread_announcements.count
+  end
+
+  def subscribed?
+    active_subscription.present?
+  end
+
+  def admin?
+    role == 'admin'
   end
 
   private

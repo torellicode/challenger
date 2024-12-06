@@ -21,3 +21,6 @@ application.register("hamburger", HamburgerController)
 
 import ProductController from "./product_controller"
 application.register("product", ProductController)
+
+import CheckoutController from "./checkout_controller"
+application.register("checkout", CheckoutController)

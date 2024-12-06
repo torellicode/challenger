@@ -42,12 +42,15 @@
             </ul>
           </div>
 
-          <%# CTA %>
+          <%# Checkout Button %>
           <div class="mt-10">
-            <button type="button" 
-                class="block w-full rounded-lg bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white shadow hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-colors">
-              Get started today
-            </button>
+            <%= form_tag checkouts_path(product_id: @product.id), 
+                data: { 
+                  controller: "checkout",
+                  action: "submit->checkout#checkout"
+                } do %>
+              <%= submit_tag "Buy Now", class: "buy-button" %>
+            <% end %>
           </div>
         </div>
 
