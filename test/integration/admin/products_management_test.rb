@@ -100,6 +100,7 @@ class Admin::ProductsManagementTest < ActionDispatch::IntegrationTest
         post admin_products_path, params: { product: @valid_one_time_product_params.merge(name: nil) }
       end
       assert_response :unprocessable_entity
+      assert_includes flash[:error_messages], "Name can't be blank"
     end 
   
     test "product requires a price" do
@@ -107,6 +108,7 @@ class Admin::ProductsManagementTest < ActionDispatch::IntegrationTest
         post admin_products_path, params: { product: @valid_one_time_product_params.merge(price_in_cents: nil) }
       end
       assert_response :unprocessable_entity
+      assert_includes flash[:error_messages], "Price in cents can't be blank"
     end
   
     test "product requires a product type" do
@@ -114,6 +116,7 @@ class Admin::ProductsManagementTest < ActionDispatch::IntegrationTest
         post admin_products_path, params: { product: @valid_one_time_product_params.merge(product_type: nil) }
       end
       assert_response :unprocessable_entity
+      assert_includes flash[:error_messages], "Product type can't be blank"
     end
   
     test "product requires a role" do
@@ -121,6 +124,7 @@ class Admin::ProductsManagementTest < ActionDispatch::IntegrationTest
         post admin_products_path, params: { product: @valid_one_time_product_params.merge(role: "") }
       end
       assert_response :unprocessable_entity
+      assert_includes flash[:error_messages], "Role can't be blank"
     end
   
     test "product requires a description" do
@@ -128,6 +132,7 @@ class Admin::ProductsManagementTest < ActionDispatch::IntegrationTest
         post admin_products_path, params: { product: @valid_one_time_product_params.merge(description: nil) }
       end
       assert_response :unprocessable_entity
+      assert_includes flash[:error_messages], "Description can't be blank"
     end
   
     test "subscription product requires a billing period" do
@@ -135,6 +140,7 @@ class Admin::ProductsManagementTest < ActionDispatch::IntegrationTest
         post admin_products_path, params: { product: @valid_subscription_product_params.merge(billing_period: nil) }
       end
       assert_response :unprocessable_entity
+      assert_includes flash[:error_messages], "Billing period can't be blank"
     end
   
     test "one time product cannot have a billing period" do
@@ -142,6 +148,7 @@ class Admin::ProductsManagementTest < ActionDispatch::IntegrationTest
         post admin_products_path, params: { product: @valid_one_time_product_params.merge(billing_period: "month") }
       end
       assert_response :unprocessable_entity
+      assert_includes flash[:error_messages], "Billing period must be blank for one-time products"
     end
   
     test "product price must be greater than 0" do
@@ -149,6 +156,7 @@ class Admin::ProductsManagementTest < ActionDispatch::IntegrationTest
         post admin_products_path, params: { product: @valid_one_time_product_params.merge(price_in_cents: 0) }
       end
       assert_response :unprocessable_entity
+      assert_includes flash[:error_messages], "Price in cents must be greater than 0"
     end
   end 
 

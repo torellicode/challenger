@@ -17,6 +17,7 @@ module Admin
         @product.sync_with_stripe
         redirect_to admin_products_path, notice: 'Product was successfully created.'
       else
+        flash[:error_messages] = @product.errors.full_messages
         render :new, status: :unprocessable_entity
       end
     end

@@ -1,0 +1,18 @@
+<% if flash[:error_messages].present? %>
+  <div class="rounded-md bg-red-50 p-4 mb-6">
+    <div class="flex">
+      <div class="ml-3">
+        <h3 class="font-medium text-red-800">
+          <%= pluralize(flash[:error_messages].count, "error") %> prohibited this <%= resource_name %> from being saved:
+        </h3>
+        <div class="mt-2 text-sm text-red-700">
+          <ul class="list-disc pl-5 space-y-1">
+            <% flash[:error_messages].each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
