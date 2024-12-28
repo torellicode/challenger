@@ -5,8 +5,8 @@ admin_user:
   username: admin_user
   role: admin
 
-regular_user:
+standard_user:
   email: user@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
-  username: regular_user
+  username: standard_user
   role: standard

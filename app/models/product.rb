@@ -2,11 +2,12 @@ class Product < ApplicationRecord
   # Validations
   validates :name, presence: true
   validates :description, presence: true
-  validates :price_in_cents, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :price_in_cents, presence: true, numericality: { greater_than: 0 }
   validates :stripe_product_id, uniqueness: true, allow_nil: true
   validates :stripe_price_id, uniqueness: true, allow_nil: true
   validates :product_type, presence: true, inclusion: { in: %w[one_time subscription] }
   validates :billing_period, presence: true, if: :subscription?
+  validate :billing_period_only_for_subscriptions
   validates :role, presence: true, inclusion: { in: %w[basic pro] }
 
   # Attributes
@@ -26,6 +27,12 @@ class Product < ApplicationRecord
   # Methods
   def subscription?
     product_type == 'subscription'
+  end
+
+  def billing_period_only_for_subscriptions
+    if product_type == 'one_time' && billing_period.present?
+      errors.add(:billing_period, 'must be blank for one-time products')
+    end
   end
 
   def self.available_roles

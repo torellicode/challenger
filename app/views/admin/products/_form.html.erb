@@ -1,5 +1,25 @@
-<%= form_with(model: [:admin, product], class: "space-y-8", data: { controller: "product" }) do |form| %>
-  <div class="space-y-8 divide-y divide-gray-200">
+<%= form_with(model: [:admin, product], data: { controller: "product" }) do |form| %>
+
+  <% if product.errors.any? %>
+    <div class="rounded-md bg-red-50 p-4 mb-6">
+      <div class="flex">
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-red-800">
+            <%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:
+          </h3>
+          <div class="mt-2 text-sm text-red-700">
+            <ul class="list-disc pl-5 space-y-1">
+              <% product.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="space-y-8">
     <div>
       <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         <%# Name field %>
@@ -54,7 +74,7 @@
         </div>
 
         <%# Role field %>
-        <div>
+        <div class="sm:col-span-3">
           <%= form.label :role, class: "block text-sm font-medium text-gray-700" %>
           <%= form.select :role, 
               Product.available_roles,

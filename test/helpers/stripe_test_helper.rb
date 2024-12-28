@@ -3,11 +3,9 @@ module StripeTestHelper
     stripe_product = OpenStruct.new(id: 'prod_test123')
     stripe_price = OpenStruct.new(id: 'price_test123')
 
-    Stripe::Product.stub :create, stripe_product do
-      Stripe::Price.stub :create, stripe_price do
-        yield if block_given?
-      end
-    end
+    Stripe::Product.expects(:create).returns(stripe_product)
+    Stripe::Price.expects(:create).returns(stripe_price)
+    yield if block_given?
   end
 
   def assert_stripe_product_fields(product)

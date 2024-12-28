@@ -1,6 +1,8 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require "minitest/stub_any_instance"
+require "mocha/minitest"
 
 module ActiveSupport
   class TestCase

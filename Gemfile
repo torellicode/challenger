@@ -83,4 +83,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "mocha"
+  gem 'minitest-stub_any_instance'
+  gem 'minitest-spec-rails'
 end

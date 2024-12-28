@@ -1,0 +1,17 @@
+subscription_product:
+  name: "Pro Subscription"
+  description: "Monthly access to all premium features"
+  price_in_cents: 2999
+  product_type: "subscription"
+  billing_period: "month"
+  role: "pro"
+  archived: false
+
+one_time_product:
+  name: "Basic Access"
+  description: "One-time purchase for basic features"
+  price_in_cents: 4999
+  product_type: "one_time"
+  billing_period: null
+  role: "basic"
+  archived: false
