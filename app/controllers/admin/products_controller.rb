@@ -14,10 +14,9 @@ module Admin
       @product = Product.new(product_params)
 
       if @product.save
-        @product.sync_with_stripe
         redirect_to admin_products_path, notice: 'Product was successfully created.'
       else
-        flash[:error_messages] = @product.errors.full_messages
+        flash.now[:error_messages] = @product.errors.full_messages
         render :new, status: :unprocessable_entity
       end
     end
@@ -29,12 +28,13 @@ module Admin
       if @product.update(product_params)
         redirect_to admin_products_path, notice: 'Product was successfully updated.'
       else
+        flash[:error_messages] = @product.errors.full_messages
         render :edit, status: :unprocessable_entity
       end
     end
 
     def destroy
-      @product.archive
+      @product.update(archived: true)
       redirect_to admin_products_path, notice: 'Product was successfully archived.'
     end
     
@@ -51,13 +51,11 @@ module Admin
 
     def publish
       @product.update(published: true)
-      @product.update_stripe_product
       redirect_to admin_products_path, notice: 'Product was successfully published.'
     end
     
     def unpublish
       @product.update(published: false)
-      @product.update_stripe_product
       redirect_to admin_products_path, notice: 'Product was successfully unpublished.'
     end
 

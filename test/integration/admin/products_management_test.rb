@@ -35,6 +35,7 @@ class Admin::ProductsManagementTest < ActionDispatch::IntegrationTest
   describe "as admin" do
     setup do 
       sign_in @admin_user
+      stub_stripe_product_creation
     end
 
     test "admin can GET products management page" do
@@ -57,7 +58,7 @@ class Admin::ProductsManagementTest < ActionDispatch::IntegrationTest
       assert_equal "Product was successfully updated.", flash[:notice]
     end
   
-    test "admin can DELETE toarchive a product" do
+    test "admin can DELETE to archive a product" do
       assert_changes -> { @one_time_product.reload.archived } do
         delete admin_product_path(@one_time_product)
       end

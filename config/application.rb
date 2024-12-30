@@ -26,5 +26,8 @@ module Challenge
 
     # Use Sidekiq as the queue adapter
     config.active_job.queue_adapter = :sidekiq
+
+    # Rake tasks
+    config.rake_eager_load = true
   end
 end
